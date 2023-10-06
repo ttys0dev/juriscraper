@@ -60,7 +60,7 @@ def clean_court_object(obj):
         return obj
 
 
-def backscrape_over_paginated_results(
+async def backscrape_over_paginated_results(
     first_page: int,
     last_page: int,
     start_date: date,
@@ -106,7 +106,7 @@ def backscrape_over_paginated_results(
             site.url = url_template.format(page)
 
         try:
-            site.html = site._download()
+            site.html = await site._download()
             site._process_html()
         except HTTPError:
             # if the request returned and error, take advantage of the cases
